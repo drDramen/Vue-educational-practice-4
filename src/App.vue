@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <b-container>
+      <user-list :users="users">
+      </user-list>
+    </b-container>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import UserList from '@/components/UserList'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    UserList
+  },
+  data () {
+    return {
+      users: []
+    }
+  },
+  created () {
+    this.getUsers().then(data => {
+      this.users = data
+    })
+  },
+  methods: {
+    getUsers: function () {
+      return fetch('https://jsonplaceholder.typicode.com/users?_limit=5')
+        .then(response => response.json())
+    }
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+#app
+  padding: 3rem 1.5rem
+  min-height: 100vh
+  background-color: #374046
 </style>
