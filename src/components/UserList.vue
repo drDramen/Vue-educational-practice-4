@@ -6,26 +6,10 @@
         :key="user.id"
         class="col-sm-6 col-md-4 d-flex align-items-stretch"
       >
-        <user-item :user="user"></user-item>
-      </div>
-
-    </div>
-    <div class="row">
-      <div
-        v-for="user in users"
-        :key="user.id"
-        class="col-sm-6 col-md-4 d-flex align-items-stretch"
-      >
-        <user-item-phone :user="user"/>
-      </div>
-    </div>
-    <div class="row">
-      <div
-        v-for="user in users"
-        :key="user.id"
-        class="col-sm-6 col-md-4 d-flex align-items-stretch"
-      >
-        <user-item-address :user="user"/>
+        <component
+          :is="currentComponent"
+          :user="user"
+        ></component>
       </div>
     </div>
   </div>
@@ -47,7 +31,8 @@ export default {
     users: {
       type: Array,
       required: true
-    }
+    },
+    currentComponent: String
   }
 }
 </script>
