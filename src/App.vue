@@ -12,19 +12,28 @@
       </div>
       <user-list
         :users="users"
-        :currentComponent="currentComponent"
-      />
+      >
+        <template v-slot:default="{ user }">
+          <component :is="currentComponent" :user="user"></component>
+        </template>
+      </user-list>
     </b-container>
   </div>
 </template>
 
 <script>
 import UserList from '@/components/UserList'
+import UserItem from '@/components/UserItem'
+import UserItemPhone from '@/components/UserItemPhone'
+import UserItemAddress from '@/components/UserItemAddress'
 
 export default {
   name: 'App',
   components: {
-    UserList
+    UserList,
+    UserItem,
+    UserItemPhone,
+    UserItemAddress
   },
   data () {
     return {

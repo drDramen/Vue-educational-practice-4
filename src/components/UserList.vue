@@ -6,33 +6,21 @@
         :key="user.id"
         class="col-sm-6 col-md-4 d-flex align-items-stretch"
       >
-        <component
-          :is="currentComponent"
-          :user="user"
-        ></component>
+        <slot :user="user"></slot>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import UserItem from '@/components/UserItem'
-import UserItemPhone from '@/components/UserItemPhone'
-import UserItemAddress from '@/components/UserItemAddress'
 
 export default {
   name: 'UserList',
-  components: {
-    UserItem,
-    UserItemPhone,
-    UserItemAddress
-  },
   props: {
     users: {
       type: Array,
       required: true
-    },
-    currentComponent: String
+    }
   }
 }
 </script>
