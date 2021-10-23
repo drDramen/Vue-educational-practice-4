@@ -1,18 +1,23 @@
 <template>
   <div class='row'>
-    <slot v-for='item in items' :item='item' :my_key='fieldId' />
+    <div
+      v-for='user in users'
+      :key='user.id'
+      class='col-sm-6 col-md-4 d-flex align-items-stretch'
+    >
+      <slot :user='user' />
+    </div>
   </div>
 </template>
 <script>
 
 export default {
-  name: 'UserList',
+  name: 'List',
   props: {
-    items: {
+    users: {
       type: Array,
       required: true
-    },
-    fieldId: {}
+    }
   }
 }
 </script>

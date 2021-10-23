@@ -1,24 +1,28 @@
 <template>
-  <div id="app">
-    <b-container>
-      <div class="component-views d-flex mb-5 justify-content-center">
-        <b-button
-          v-for="(view, i) in views"
-          :key="i"
-          @click="currentComponent = view.value"
-        >
-          {{ view.name }}
-        </b-button>
-      </div>
-      <user-list
-        :users="users"
+  <b-container>
+
+    <div class='component-views d-flex mb-5 justify-content-center'>
+      <b-button
+        v-for='(view, i) in views'
+        :key='i'
+        @click='currentComponent = view.value'
       >
-        <template v-slot:default="{ user }">
-          <component :is="currentComponent" :user="user"></component>
-        </template>
-      </user-list>
-    </b-container>
-  </div>
+        {{ view.name }}
+      </b-button>
+    </div>
+
+    <user-list :items='users' field-id='email'>
+      <template v-slot='{ item, my_key }'>
+        <component :is='currentComponent' :user='item' :key='item[my_key]' />
+      </template>
+    </user-list>
+
+<!--    <list :items='users'>-->
+<!--      <template v-slot='{ item }'>-->
+<!--        <component :is='currentComponent' :user='item' />-->
+<!--      </template>-->
+<!--    </list>-->
+  </b-container>
 </template>
 
 <script>
@@ -26,14 +30,16 @@ import UserList from '@/components/UserList'
 import UserItem from '@/components/UserItem'
 import UserItemPhone from '@/components/UserItemPhone'
 import UserItemAddress from '@/components/UserItemAddress'
+import List from '@/components/List'
 
 export default {
   name: 'App',
   components: {
-    UserList,
-    UserItem,
-    UserItemPhone,
-    UserItemAddress
+    List,
+    UserList
+    // UserItem,
+    // UserItemPhone,
+    // UserItemAddress
   },
   data () {
     return {
@@ -41,19 +47,19 @@ export default {
       views: [
         {
           name: 'email',
-          value: 'UserItem'
+          value: UserItem
         },
         {
           name: '+phone',
-          value: 'UserItemPhone'
+          value: UserItemPhone
         },
 
         {
           name: '+address',
-          value: 'UserItemAddress'
+          value: UserItemAddress
         }
       ],
-      currentComponent: 'UserItem'
+      currentComponent: UserItem
     }
   },
   created () {
@@ -71,7 +77,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang='sass'>
 #app
   padding: 3rem 1.5rem
   min-height: 100vh
