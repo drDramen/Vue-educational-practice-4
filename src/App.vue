@@ -20,6 +20,9 @@
 
 <script>
 import UserList from '@/components/UserList'
+import UserItem from '@/components/UserItem'
+import UserItemPhone from '@/components/UserItemPhone'
+import UserItemAddress from '@/components/UserItemAddress'
 
 export default {
   name: 'App',
@@ -30,33 +33,20 @@ export default {
     return {
       users: [],
       views: [
-        {
-          name: 'email',
-          value: 'UserItem'
-        },
-        {
-          name: '+phone',
-          value: 'UserItemPhone'
-        },
-
-        {
-          name: '+address',
-          value: 'UserItemAddress'
-        }
+        { name: 'email', value: UserItem },
+        { name: '+phone', value: UserItemPhone },
+        { name: '+address', value: UserItemAddress }
       ],
-      currentComponent: 'UserItem'
+      currentComponent: UserItem
     }
   },
   created () {
-    this.getUsers().then(data => {
-      this.users = data
-    })
-    console.log(UserList)
+    this.getUsers()
   },
   methods: {
-    getUsers: function () {
-      return fetch('https://jsonplaceholder.typicode.com/users?_limit=5')
-        .then(response => response.json())
+    getUsers: async function () {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users?_limit=5')
+      this.users = await response.json()
     }
   }
 }

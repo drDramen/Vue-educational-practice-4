@@ -16,23 +16,15 @@
 </template>
 
 <script>
-import UserItem from '@/components/UserItem'
-import UserItemPhone from '@/components/UserItemPhone'
-import UserItemAddress from '@/components/UserItemAddress'
 
 export default {
   name: 'UserList',
-  components: {
-    UserItem,
-    UserItemPhone,
-    UserItemAddress
-  },
   props: {
     users: {
       type: Array,
       required: true
     },
-    currentComponent: String
+    currentComponent: Object
   }
 }
 </script>
